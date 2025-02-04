@@ -7,14 +7,14 @@ interface CriticScoreProps {
 const CriticScore = ({ score }: CriticScoreProps) => {
   const bgColor = score > 80 ? "green" : score > 50 ? "yellow" : "";
   const fgColor =
-    bgColor === "green" ? "white" : bgColor === "yellow" ? "black" : "";
+    bgColor === "green" ? "white" : bgColor === "yellow" ? "gray.600" : "";
 
   return (
     <>
       <Badge
         fontSize={"14px"}
         paddingX={2}
-        borderRadius={1}
+        borderRadius={5}
         bg={bgColor}
         color={fgColor}
       >

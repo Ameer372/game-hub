@@ -2,7 +2,7 @@ import { SkeletonText } from "../ui/skeleton";
 const GenreListSkeleton = () => {
   return (
     <>
-      <SkeletonText noOfLines={20} gap={4} />
+      <SkeletonText noOfLines={25} gap={4} />
     </>
   );
 };
