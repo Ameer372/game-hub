@@ -23,7 +23,7 @@ const PlatformSelector = ({
   if (error) return null;
 
   return (
-    <Box ml={3}>
+    <Box>
       <MenuRoot>
         <MenuTrigger asChild>
           <Button variant="outline" size="sm">
