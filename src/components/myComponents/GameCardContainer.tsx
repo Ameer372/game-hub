@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
 interface GameCardContainerProps {
-  children: ReactNode;
+  children: ReactNode[] | ReactNode;
 }
 
 const GameCardContainer = ({ children }: GameCardContainerProps) => {

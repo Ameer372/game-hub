@@ -13,8 +13,6 @@ const GameGrid = ({ gameQuery }: GameGridProps) => {
   const { data, error, isLoading } = useGames(gameQuery);
   const skeletons = Array.from({ length: 20 }, (_, i) => i);
 
-  if (error) return <Text>{error}</Text>;
-
   return (
     <>
       {error && <Text>{error}</Text>}
