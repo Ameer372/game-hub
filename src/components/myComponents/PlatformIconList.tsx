@@ -30,6 +30,9 @@ const PlatformIconList = ({ platforms }: PlatformIconListProps) => {
     mac: FaApple,
   };
 
+  if (!platforms || platforms.length === 0)
+    return <div>Error: Platform Icon data is missing!</div>; // Ensure it always returns something
+
   return (
     <>
       <HStack marginY={1}>

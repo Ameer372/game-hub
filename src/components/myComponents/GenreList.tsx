@@ -19,34 +19,36 @@ const GenreList = ({ onSelectGenre, selectedGenre }: GenreListProps) => {
         load side panel ).
       </Text>
     );
-  }
-
-  if (isLoading) {
+  } else if (isLoading) {
     return <GenreListSkeleton />;
   }
 
   return (
     <List.Root>
-      {data.map((genre) => (
-        <List.Item key={genre.id} as={"ul"} paddingY={1}>
-          <HStack>
-            <Image
-              src={getCroppedImageUrl(genre.image_background)}
-              alt={genre.name}
-              boxSize="32px"
-              borderRadius={8}
-              objectFit="cover"
-            />
-            <Link
-              fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
-              variant={"underline"}
-              onClick={() => onSelectGenre(genre)}
-            >
-              {genre.name}
-            </Link>
-          </HStack>
-        </List.Item>
-      ))}
+      {data
+        .filter(
+          (genre) => !["Shooter", "Sports", "Fighting"].includes(genre.name)
+        )
+        .map((genre) => (
+          <List.Item key={genre.id} as={"ul"} paddingY={1}>
+            <HStack>
+              <Image
+                src={getCroppedImageUrl(genre.image_background)}
+                alt={genre.name}
+                boxSize="32px"
+                borderRadius={8}
+                objectFit="cover"
+              />
+              <Link
+                fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
+                variant={"underline"}
+                onClick={() => onSelectGenre(genre)}
+              >
+                {genre.name}
+              </Link>
+            </HStack>
+          </List.Item>
+        ))}
     </List.Root>
   );
 };

@@ -11,15 +11,17 @@ const CriticScore = ({ score }: CriticScoreProps) => {
 
   return (
     <>
-      <Badge
-        fontSize={"14px"}
-        paddingX={2}
-        borderRadius={5}
-        bg={bgColor}
-        color={fgColor}
-      >
-        {score}
-      </Badge>
+      {score && (
+        <Badge
+          fontSize={"14px"}
+          paddingX={2}
+          borderRadius={5}
+          bg={bgColor}
+          color={fgColor}
+        >
+          {score}
+        </Badge>
+      )}
     </>
   );
 };

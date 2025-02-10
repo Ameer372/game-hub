@@ -12,6 +12,9 @@ interface GameGridProps {
 const GameGrid = ({ gameQuery }: GameGridProps) => {
   const { data, error, isLoading } = useGames(gameQuery);
   const skeletons = Array.from({ length: 20 }, (_, i) => i);
+
+  if (error) return <Text>{error}</Text>;
+
   return (
     <>
       {error && <Text>{error}</Text>}
@@ -23,15 +26,15 @@ const GameGrid = ({ gameQuery }: GameGridProps) => {
         {isLoading &&
           skeletons.map((Skeleton) => (
             <GameCardContainer key={Skeleton}>
-              {" "}
-              <GameCardSkeleton />{" "}
+              <GameCardSkeleton />
             </GameCardContainer>
           ))}
-        {data.map((game) => (
-          <GameCardContainer key={game.id}>
-            <GameCard game={game} />
-          </GameCardContainer>
-        ))}
+        {!isLoading &&
+          data.map((game) => (
+            <GameCardContainer key={game.id}>
+              <GameCard game={game} />
+            </GameCardContainer>
+          ))}
       </SimpleGrid>
     </>
   );
