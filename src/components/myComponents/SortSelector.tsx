@@ -9,9 +9,10 @@ import {
 
 interface SortSelectorProps {
   onSelectSortOrder: (sortOrder: string) => void;
+  sortOrder: string;
 }
 
-const SortSelector = ({ onSelectSortOrder }: SortSelectorProps) => {
+const SortSelector = ({ onSelectSortOrder, sortOrder }: SortSelectorProps) => {
   const sortOrders = [
     {
       value: "",
@@ -39,12 +40,14 @@ const SortSelector = ({ onSelectSortOrder }: SortSelectorProps) => {
     },
   ];
 
+  const currentSortOrder = sortOrders.find((o) => o.value === sortOrder);
+
   return (
     <Box>
       <MenuRoot>
         <MenuTrigger asChild>
           <Button variant="outline" size="sm">
-            Order by : Relevance
+            Order by : {currentSortOrder?.label || "Relevance"}
           </Button>
         </MenuTrigger>
         <MenuContent pos={"absolute"} mt={2} width={"1/6"}>
