@@ -1,5 +1,5 @@
 import { Platform } from "@/hooks/useGames";
-import { HStack, Icon } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 import { BsGlobe } from "react-icons/bs";
 import {
@@ -34,20 +34,15 @@ const PlatformIconList = ({ platforms }: PlatformIconListProps) => {
     return <div>Error: Platform Icon data is missing!</div>; // Ensure it always returns something
 
   return (
-    <>
-      <HStack marginY={1}>
-        {platforms.map((platform) => (
-          <Icon
-            size={"sm"}
-            color={"gray.400"}
-            key={platform.id}
-            as={iconMap[platform.slug]}
-          >
-            {platform.name}
-          </Icon>
-        ))}
-      </HStack>
-    </>
+    <HStack marginY={1}>
+      {platforms.map((platform) => {
+        const IconComponent = iconMap[platform.slug];
+        if (!IconComponent) {
+          return null; // Prevent crashes
+        }
+        return <IconComponent key={platform.id} color="gray" />;
+      })}
+    </HStack>
   );
 };
 
