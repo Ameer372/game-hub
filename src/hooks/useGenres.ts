@@ -19,5 +19,3 @@ const useGenres = () => useQuery({
 
 export default useGenres;
 
-
-// ({ data: genres, isLoading: false, error: null });
