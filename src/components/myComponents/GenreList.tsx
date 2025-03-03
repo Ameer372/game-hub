@@ -14,10 +14,10 @@ import GenreListSkeleton from "./GenreListSkeleton";
 
 interface GenreListProps {
   onSelectGenre: (genre: Genre) => void;
-  selectedGenre: Genre | null;
+  selectedGenreId?: number;
 }
 
-const GenreList = ({ onSelectGenre, selectedGenre }: GenreListProps) => {
+const GenreList = ({ onSelectGenre, selectedGenreId }: GenreListProps) => {
   const { data, isLoading, error } = useGenres();
 
   if (error) {
@@ -51,7 +51,7 @@ const GenreList = ({ onSelectGenre, selectedGenre }: GenreListProps) => {
                 />
                 <Link
                   fontWeight={
-                    genre.id === selectedGenre?.id ? "bold" : "normal"
+                    genre.id === selectedGenreId ? "bold" : "normal"
                   }
                   variant={"underline"}
                   onClick={() => onSelectGenre(genre)}

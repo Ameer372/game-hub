@@ -10,14 +10,15 @@ import {
 
 interface PlatformSelectorProps {
   onSelectPlatform: (plat: Platform) => void;
-  selectedPlatform: Platform | null;
+  selectedPlatformId?: number;
 }
 
 const PlatformSelector = ({
   onSelectPlatform,
-  selectedPlatform,
+  selectedPlatformId,
 }: PlatformSelectorProps) => {
   const { data, error } = usePlatforms();
+  const selectedPlatform = data?.results.find(p => p.id === selectedPlatformId)
 
   if (error) return null;
 
