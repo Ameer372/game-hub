@@ -31,7 +31,7 @@ const PlatformSelector = ({
           </Button>
         </MenuTrigger>
         <MenuContent pos={"absolute"} mt={2} width={"1/6"}>
-          {data.map((platform) => (
+          {data?.results.map((platform) => (
             <MenuItem
               key={platform.id}
               onClick={() => onSelectPlatform(platform)}

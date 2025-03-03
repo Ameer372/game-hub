@@ -38,10 +38,7 @@ const GenreList = ({ onSelectGenre, selectedGenre }: GenreListProps) => {
       </Heading>
 
       <List.Root>
-        {data
-          .filter(
-            (genre) => !["Shooter", "Sports", "Fighting"].includes(genre.name)
-          )
+        {data?.results
           .map((genre) => (
             <List.Item key={genre.id} as={"ul"} paddingY={1}>
               <HStack>
