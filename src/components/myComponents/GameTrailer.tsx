@@ -1,5 +1,5 @@
 import useTrailers from "@/hooks/useTrailers";
-import { Spinner } from "@chakra-ui/react";
+import { Heading, Spinner } from "@chakra-ui/react";
 
 interface Props {
   gameId: number;
@@ -15,10 +15,11 @@ const GameTrailer = ({ gameId }: Props) => {
   const first = data?.results[0];
 
   return first ? (
-    <video src={first.data[480]} poster={first.preview} controls />
-  ) : (
-    "There is no trailer :("
-  );
+    <>
+      <Heading color={"gray.600"}>Game Trailer</Heading>
+      <video src={first.data[480]} poster={first.preview} controls />
+    </>
+  ) : null;
 };
 
 export default GameTrailer;
