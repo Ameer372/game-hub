@@ -15,7 +15,10 @@ const GameCard = ({ game }: GameCardProps) => {
       <Card.Body>
         <HStack mb={3} justifyContent="space-between">
           <PlatformIconList
-            platforms={game.parent_platforms.map((p) => p.platform || [])}
+            platforms={
+              game.parent_platforms && // to prevent site crash due to undefined values.
+              game.parent_platforms.map((p) => p.platform || [])
+            }
           />
           <CriticScore score={game.metacritic} />
         </HStack>
