@@ -1,5 +1,6 @@
-import { Platform } from "@/hooks/useGames";
+import usePlatform from "@/hooks/usePlatform";
 import usePlatforms from "@/hooks/usePlatforms";
+import useGameQueryStore from "@/store";
 import {
   Box,
   Button,
@@ -9,17 +10,13 @@ import {
   MenuTrigger,
 } from "@chakra-ui/react";
 
-interface PlatformSelectorProps {
-  onSelectPlatform: (plat: Platform) => void;
-  selectedPlatform: Platform | null;
-}
+const PlatformSelector = () => {
+  const selectedPlatformId = useGameQueryStore((s) => s.gameQuery.platformId);
 
-const PlatformSelector = ({
-  onSelectPlatform,
-  selectedPlatform,
-}: PlatformSelectorProps) => {
+  const setSelectedPlatformId = useGameQueryStore((s) => s.setPlatformId);
+
   const { data, error } = usePlatforms();
-
+  const selectedPlatform = usePlatform(selectedPlatformId);
   if (error) return null;
 
   return (
@@ -31,10 +28,10 @@ const PlatformSelector = ({
           </Button>
         </MenuTrigger>
         <MenuContent pos={"absolute"} mt={2} width={"1/6"}>
-          {data.map((platform) => (
+          {data?.results.map((platform) => (
             <MenuItem
               key={platform.id}
-              onClick={() => onSelectPlatform(platform)}
+              onClick={() => setSelectedPlatformId(platform.id)}
               value={platform.slug}
             >
               {platform.name}

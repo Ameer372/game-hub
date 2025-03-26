@@ -1,8 +1,9 @@
-import { Game } from "@/hooks/useGames";
+import Game from "@/entities/Game";
 import getCroppedImageUrl from "@/services/image-url";
 import { Card, HStack, Image } from "@chakra-ui/react";
 import CriticScore from "./CriticScore";
 import PlatformIconList from "./PlatformIconList";
+import { Link } from "react-router-dom";
 
 interface GameCardProps {
   game: Game;
@@ -14,11 +15,16 @@ const GameCard = ({ game }: GameCardProps) => {
       <Card.Body>
         <HStack mb={3} justifyContent="space-between">
           <PlatformIconList
-            platforms={game.parent_platforms.map((p) => p.platform || [])}
+            platforms={
+              game.parent_platforms && // to prevent site crash due to undefined values.
+              game.parent_platforms.map((p) => p.platform || [])
+            }
           />
           <CriticScore score={game.metacritic} />
         </HStack>
-        <Card.Title>{game.name}</Card.Title>
+        <Card.Title>
+          <Link to={"/games/" + game.slug}>{game.name}</Link>
+        </Card.Title>
       </Card.Body>
     </Card.Root>
   );

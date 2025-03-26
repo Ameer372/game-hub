@@ -1,4 +1,4 @@
-import useGenres, { Genre } from "@/hooks/useGenres";
+import useGenres from "@/hooks/useGenres";
 import getCroppedImageUrl from "@/services/image-url";
 import {
   Heading,
@@ -11,14 +11,13 @@ import {
 } from "@chakra-ui/react";
 import { FaExclamationTriangle } from "react-icons/fa";
 import GenreListSkeleton from "./GenreListSkeleton";
+import useGameQueryStore from "@/store";
 
-interface GenreListProps {
-  onSelectGenre: (genre: Genre) => void;
-  selectedGenre: Genre | null;
-}
-
-const GenreList = ({ onSelectGenre, selectedGenre }: GenreListProps) => {
+const GenreList = () => {
   const { data, isLoading, error } = useGenres();
+
+  const selectedGenreId = useGameQueryStore((s) => s.gameQuery.genreId);
+  const setSelectedGenreId = useGameQueryStore((s) => s.setGenreId);
 
   if (error) {
     return (
@@ -38,32 +37,26 @@ const GenreList = ({ onSelectGenre, selectedGenre }: GenreListProps) => {
       </Heading>
 
       <List.Root>
-        {data
-          .filter(
-            (genre) => !["Shooter", "Sports", "Fighting"].includes(genre.name)
-          )
-          .map((genre) => (
-            <List.Item key={genre.id} as={"ul"} paddingY={1}>
-              <HStack>
-                <Image
-                  src={getCroppedImageUrl(genre.image_background)}
-                  alt={genre.name}
-                  boxSize="32px"
-                  borderRadius={8}
-                  objectFit="cover"
-                />
-                <Link
-                  fontWeight={
-                    genre.id === selectedGenre?.id ? "bold" : "normal"
-                  }
-                  variant={"underline"}
-                  onClick={() => onSelectGenre(genre)}
-                >
-                  {genre.name}
-                </Link>
-              </HStack>
-            </List.Item>
-          ))}
+        {data?.results.map((genre) => (
+          <List.Item key={genre.id} as={"ul"} paddingY={1}>
+            <HStack>
+              <Image
+                src={getCroppedImageUrl(genre.image_background)}
+                alt={genre.name}
+                boxSize="32px"
+                borderRadius={8}
+                objectFit="cover"
+              />
+              <Link
+                fontWeight={genre.id === selectedGenreId ? "bold" : "normal"}
+                variant={"underline"}
+                onClick={() => setSelectedGenreId(genre.id)}
+              >
+                {genre.name}
+              </Link>
+            </HStack>
+          </List.Item>
+        ))}
       </List.Root>
     </>
   );

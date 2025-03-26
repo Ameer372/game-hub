@@ -1,3 +1,4 @@
+import useGameQueryStore from "@/store";
 import {
   Box,
   Button,
@@ -7,12 +8,11 @@ import {
   MenuTrigger,
 } from "@chakra-ui/react";
 
-interface SortSelectorProps {
-  onSelectSortOrder: (sortOrder: string) => void;
-  sortOrder: string;
-}
+const SortSelector = () => {
+  const sortOrder = useGameQueryStore((s) => s.gameQuery.sortOrder);
 
-const SortSelector = ({ onSelectSortOrder, sortOrder }: SortSelectorProps) => {
+  const setSortOrder = useGameQueryStore((s) => s.setSortOrder);
+
   const sortOrders = [
     {
       value: "",
@@ -54,7 +54,7 @@ const SortSelector = ({ onSelectSortOrder, sortOrder }: SortSelectorProps) => {
           {sortOrders.map((order) => (
             <MenuItem
               key={order.value}
-              onClick={() => onSelectSortOrder(order.value)}
+              onClick={() => setSortOrder(order.value)}
               value={order.value}
             >
               {order.label}
